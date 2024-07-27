@@ -1,0 +1,43 @@
+/* 4x Resolution
+			uint8_t enc_val_a, enc_val_b;
+	    uint8_t enc_inc, enc_dec;
+	    // Read pin A and pin B every rising and falling edge interrupt
+	    // from both pin (4x resolution)
+			enc_val_a = (uint8_t) ((GPIOB->IDR & GPIO_PIN_9) >> 9);
+			enc_val_b = (uint8_t) ((GPIOB->IDR & GPIO_PIN_8) >> 8);
+	    // Read encoder direction using xor logic
+	    enc_inc = enc_val_a ^ last_enc_val_b;
+	   // enc_dec = enc_val_b ^ last_enc_val_a;
+	    // Decrement or increment counter
+	    if(enc_inc)
+	    {
+					encoder_counter++;		
+	    }
+	   
+	    // Store encoder value for next reading
+	    //last_enc_val_a = enc_val_a;
+	    last_enc_val_b = enc_val_b;
+
+	*/
+
+	/* 2x Resolution
+	uint8_t enc_val_a, enc_val_b;
+	uint8_t enc_inc;	
+	enc_val_a = (uint8_t) ((GPIOB->IDR & GPIO_PIN_9) >> 9);
+	enc_val_b = (uint8_t) ((GPIOB->IDR & GPIO_PIN_8) >> 8);
+	// Read encoder direction using xor logic
+	enc_inc = enc_val_a ^ enc_val_b;
+	 // increment counter
+	 if(enc_inc)
+	 {
+	        encoder_counter++;				
+	}
+	*/
+
+
+	//1x	Resolution
+	if((GPIOB ->IDR & GPIO_PIN_8) == 0)
+	{			
+			encoder_counter ++;
+	}
+	
