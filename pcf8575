@@ -1,0 +1,22 @@
+void writePCF8575(uint8_t address, uint16_t data) {
+  Wire.beginTransmission(address);
+  Wire.write(lowByte(data));
+  Wire.write(highByte(data));
+  Wire.endTransmission();
+}
+
+
+uint16_t readPCF8575(uint8_t address) {
+  uint16_t data = 0xFFFF;
+  Wire.requestFrom(address, (uint8_t)2);
+  if (Wire.available() == 2) {
+    data = Wire.read();
+    data |= (Wire.read() << 8);
+  }
+  
+  #if defined(__AVR_ATmega328P__) || defined(__AVR_ATmega168__)
+  Wire.clearWireTimeoutFlag();
+  #endif
+  
+  return data;
+}
