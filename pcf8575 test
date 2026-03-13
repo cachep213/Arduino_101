@@ -1,0 +1,43 @@
+#include <Wire.h>
+
+// 1111 1111 1111 1111 (Tất cả 16 chân  - Mức cao)
+uint16_t pcfData = 0x0000; 
+
+void setup() {
+  Wire.begin();
+  
+  // Mở các chân từ 10 đến 15 (Mức thấp)
+  // for (int i = 10; i <= 15; i++) {
+  //   // Phép toán AND với bit đảo (NOT) để ép bit về 0
+  //   pcfData &= ~(1 << i); 
+  // }
+
+  // Gửi dữ liệu qua I2C
+  Wire.beginTransmission(0x24); // Địa chỉ mặc định của PCF8575
+  Wire.write(pcfData & 0xFF);          // Gửi Byte thấp (P00-P07)
+  Wire.write((pcfData >> 8) & 0xFF);   // Gửi Byte cao (P10-P17)
+  Wire.endTransmission();
+
+
+  delay(1000);
+
+}
+void loop() {
+
+ uint16_t pcfData = 0x0000; 
+    Wire.beginTransmission(0x24); // Địa chỉ mặc định của PCF8575
+  Wire.write(pcfData & 0xFF);          // Gửi Byte thấp (P00-P07)
+  Wire.write((pcfData >> 8) & 0xFF);   // Gửi Byte cao (P10-P17)
+  Wire.endTransmission();
+
+
+  delay(1000);
+  pcfData = 0xffff; 
+    Wire.beginTransmission(0x24); // Địa chỉ mặc định của PCF8575
+  Wire.write(pcfData & 0xFF);          // Gửi Byte thấp (P00-P07)
+  Wire.write((pcfData >> 8) & 0xFF);   // Gửi Byte cao (P10-P17)
+  Wire.endTransmission();
+  
+  delay(1000);
+}
+
