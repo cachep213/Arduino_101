@@ -1,5 +1,5 @@
   int button1 = digitalRead(button_start);
-
+  bool startbutton = false;
 
   if (button1 != lastButton1State) {
     // reset the debouncing timer
@@ -12,6 +12,29 @@
        button1State = button1;
        if (button1State == 0){//press start
             //runcode in here
+        }   
+    }
+  }
+  lastButton1State = button1;
+
+-------------------------------------------
+//nhan 1 lan, giu cung nhan 1 lan
+  if (button1 != lastButton1State) {
+    // reset the debouncing timer
+    lastDebounceTime1 = millis();
+  }
+  if ((millis() - lastDebounceTime1) > debounceDelay) {
+    // if the button state has changed:
+    if (button1 != button1State) //press start
+    {  
+      
+       button1State = button1;
+       if (button1State == 0){//press start
+           if( !startbutton){
+               startbutton = true;
+           }else{
+                startbutton = false;
+           }
         }   
     }
   }
